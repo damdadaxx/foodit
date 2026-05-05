@@ -31,24 +31,24 @@ Foodit은 음식 정보를 등록, 수정, 삭제하고 정렬 및 검색할 수
 
 ```text
 foodit/
-├── public/              # 정적 자원 관리 (이미지 등)
+├── public/              # 정적 자원 (기본 이미지 등)
 ├── src/
-│   ├── components/      # UI 컴포넌트 단위 관리
-│   │   ├── Food/        # 음식 CRUD 핵심 컴포넌트 (Form, List, Item)
-│   │   ├── FormControls/# 공통 입력 요소 (Input, Select, Textarea)
-│   │   ├── LocaleSelect/# 언어 변경 선택 컴포넌트
-│   │   ├── Layout/      # 공통 레이아웃 (Header, Footer 포함)
-│   │   └── Modal/       # 알림 및 수정용 모달
-│   ├── contexts/        # 전역 상태 관리 (LocaleContext - 다국어 설정)
-│   ├── hooks/           # 커스텀 훅 (useLocale, useTranslate 등 비즈니스 로직)
-│   ├── utils/           # 유틸리티 함수 (날짜 포맷팅 등)
-│   ├── App.jsx          # 메인 로직 및 전역 Context 적용
-│   ├── main.jsx         # 애플리케이션 진입점
-│   ├── mock.json        # 목업 데이터
-│   └── index.css        # 전역 스타일 및 초기화(reset)
-├── index.html           # 메인 HTML 템플릿
-├── package.json         # 의존성 및 스크립트 관리
-└── README.md            # 프로젝트 상세 정보 문서
+│   ├── components/      # UI 컴포넌트
+│   │   ├── Food/        # 음식 목록/아이템 및 CRUD 폼
+│   │   ├── FormControls/# Input, Select 및 새로 추가된 FileInput
+│   │   ├── LocaleSelect/# 다국어 선택 컴포넌트
+│   │   ├── Layout/      # Header, Footer를 포함한 전체 레이아웃
+│   │   └── Modal/       # 피드백용 모달
+│   ├── contexts/        # 전역 상태 (Locale)
+│   ├── hooks/           # 커스텀 훅 (다국어 및 언어 설정)
+│   ├── utils/           # 유틸리티 함수
+│   │   ├── axios.js     # API 통신을 위한 Axios 인스턴스 설정
+│   │   └── date.js      # 날짜 포맷팅 함수
+│   ├── App.jsx          # 페이지네이션 로직 및 메인 상태 관리
+│   ├── main.jsx         # 진입점
+│   └── index.css        # 전역 및 초기화 스타일
+├── package.json         # 의존성 관리 (axios 등)
+└── README.md            # 프로젝트 문서
 ```
 
 ## 📦 시작 가이드 (Getting Started)

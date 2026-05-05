@@ -1,67 +1,103 @@
-import { useState } from "react";
-import mockData from "./mock.json";
+import { useEffect, useState } from "react";
+
+import useTranslate from "./hooks/useTranslate";
+import axios from "./utils/axios";
+
 import Modal from "./components/Modal/Modal";
 import Layout from "./components/Layout/Layout";
 import FoodList from "./components/Food/FoodList";
 import FoodForm from "./components/Food/FoodForm";
 import Button from "./components/Button/Button";
+
 import styles from "./App.module.css";
+
 import searchImage from "./assets/ic_search.svg";
-import useTranslate from "./hooks/useTranslate";
+
+const LIMIT = 10;
 
 function App() {
   const t = useTranslate();
 
-  const [items, setItems] = useState(mockData);
+  const [items, setItems] = useState([]);
   const [order, setOrder] = useState("createdAt");
   const [keyword, setKeyword] = useState("");
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [cursor, setCursor] = useState();
+
+  const handleLoad = async (orderParams, searchParam) => {
+    const response = await axios.get("/foods", {
+      params: { order: orderParams, search: searchParam, limit: LIMIT },
+    });
+    const { foods, paging } = response.data;
+    setItems(foods);
+    setCursor(paging.nextCursor);
+  };
+
+  const handleLoadMore = async () => {
+    const response = await axios.get("/foods", {
+      params: {
+        order,
+        search: keyword,
+        limit: LIMIT,
+        cursor,
+      },
+    });
+    const { foods, paging } = response.data;
+    setItems((prevItems) => [...prevItems, ...foods]);
+    setCursor(paging.nextCursor);
+  };
 
   const handleLatestClick = () => setOrder("createdAt");
   const handleCalorieClick = () => setOrder("calorie");
 
   const handleKeywordChange = (e) => setKeyword(e.target.value);
 
-  const handleDelete = (id) => {
-    const newItems = items.filter((item) => item.id !== id);
-    setItems(newItems);
-  };
+  const handleCreate = async (data) => {
+    // const now = new Date();
+    // const newItem = {
+    //   id: items.length + 1,
+    //   ...data,
+    //   createdAt: now.valueOf(),
+    //   updatedAt: now.valueOf(),
+    // };
 
-  const handleCreate = (data) => {
-    const now = new Date();
-    const newItem = {
-      id: items.length + 1,
-      ...data,
-      createdAt: now.valueOf(),
-      updatedAt: now.valueOf(),
-    };
+    const response = await axios.post("/foods", data);
+    const { food } = response.data;
 
-    setItems([newItem, ...items]);
+    // setItems([newItem, ...items]);
+    setItems((prevItems) => [food, ...prevItems]);
     setIsCreateModalOpen(false);
   };
 
-  const handleUpdate = (id, data) => {
-    const index = items.findIndex((item) => item.id === id);
-    const now = new Date();
-    const newItem = {
-      ...items[index],
-      ...data,
-      updatedAt: now.valueOf(),
-    };
-    const newItems = [
-      ...items.slice(0, index),
-      newItem,
-      ...items.slice(index + 1),
-    ];
+  const handleUpdate = async (id, data) => {
+    const response = await axios.patch(`/foods/${id}`, data);
+    const { food } = response.data;
 
-    setItems(newItems);
+    setItems((prevItems) => {
+      const index = prevItems.findIndex((item) => item.id === id);
+
+      return [
+        ...prevItems.slice(0, index),
+        food,
+        ...prevItems.slice(index + 1),
+      ];
+    });
   };
 
-  const resultItems = items
-    .sort((a, b) => b[order] - a[order])
-    .filter(
-      (item) => item.title.includes(keyword) || item.content.includes(keyword),
-    );
+  const handleDelete = async (id) => {
+    await axios.delete(`/foods/${id}`);
+    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
+  // const resultItems = items
+  //   .sort((a, b) => b[order] - a[order])
+  //   .filter(
+  //     (item) => item.title.includes(keyword) || item.content.includes(keyword),
+  //   );
+
+  useEffect(() => {
+    handleLoad(order, keyword);
+  }, [order, keyword]);
 
   return (
     <Layout>
@@ -74,11 +110,7 @@ function App() {
             value={keyword}
             onChange={handleKeywordChange}
           />
-          <img
-            className={styles.searchImage}
-            src={searchImage}
-            alt={t("")}
-          />
+          <img className={styles.searchImage} src={searchImage} alt={t("")} />
         </article>
         <div className={styles.buttonGroup}>
           <div className={styles.orderButtons}>
@@ -109,11 +141,12 @@ function App() {
       >
         <FoodForm onSubmit={handleCreate} />
       </Modal>
-      <FoodList
-        items={resultItems}
-        onDelete={handleDelete}
-        onUpdate={handleUpdate}
-      />
+      <FoodList items={items} onDelete={handleDelete} onUpdate={handleUpdate} />
+      {cursor && (
+        <Button variant='loadMore' onClick={handleLoadMore}>
+          더보기
+        </Button>
+      )}
     </Layout>
   );
 }

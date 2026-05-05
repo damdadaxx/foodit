@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from "react";
 import Button from "../Button/Button";
 import Input from "../FormControls/Input";
 import Textarea from "../FormControls/Textarea";
-import noImage from "../../assets/noImage.png";
 import styles from "./FoodForm.module.css";
 import useTranslate from "../../hooks/useTranslate";
+import FileInput from "../FormControls/FileInput";
 
 export default function CreateFoodForm({
   review = { title: "", imgUrl: "", calorie: "", content: "" },
@@ -14,13 +14,13 @@ export default function CreateFoodForm({
 
   const inputRef = useRef(null);
 
-  const handleSubmit = (formData) => {
-    // const title = formData.get("title");
-    // const calorie = formData.get("calorie");
-    // const content = formData.get("content");
-    const data = Object.fromEntries(formData.entries());
-    onSubmit(data);
-  };
+  // const handleSubmit = (formData) => {
+  //   // const title = formData.get("title");
+  //   // const calorie = formData.get("calorie");
+  //   // const content = formData.get("content");
+  //   const data = Object.fromEntries(formData.entries());
+  //   onSubmit(data);
+  // };
 
   useEffect(() => {
     if (inputRef.current) {
@@ -29,13 +29,13 @@ export default function CreateFoodForm({
   }, []);
 
   return (
-    <form className={styles.form} action={handleSubmit}>
+    <form className={styles.form} action={onSubmit}>
       <div className={styles.inner}>
         <div className={styles.imageContainer}>
-          <img
-            className={styles.noImage}
-            src={review.imgUrl !== "" ? review.imgUrl : noImage}
-            alt={t("food image")}
+          <FileInput
+            name='imgFile'
+            initialPreview={review.imgUrl}
+            imageAlt={t("food image")}
           />
         </div>
         <div className={styles.inputs}>
