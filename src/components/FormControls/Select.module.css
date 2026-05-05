@@ -1,0 +1,11 @@
+.select {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 108px;
+  height: 30px;
+  padding: 0 7px;
+  border-radius: 8px;
+  border: 1px solid #d1d1d1;
+  background: #f9f9f9;
+}

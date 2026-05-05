@@ -31,22 +31,24 @@ Foodit은 음식 정보를 등록, 수정, 삭제하고 정렬 및 검색할 수
 
 ```text
 foodit/
-├── public/              # 정적 자원 (이미지, 파비콘 등)
+├── public/              # 정적 자원 관리 (이미지 등)
 ├── src/
-│   ├── components/      # 재사용 가능한 UI 컴포넌트
+│   ├── components/      # UI 컴포넌트 단위 관리
 │   │   ├── Food/        # 음식 CRUD 핵심 컴포넌트 (Form, List, Item)
-│   │   ├── FormControls/# 공통 입력 요소 (Input, Textarea)
-│   │   ├── Layout/      # 전체 페이지 레이아웃 컴포넌트
-│   │   ├── Modal/       # 수정 및 알림용 모달 컴포넌트
-│   │   └── Header, Footer, Button
-│   ├── contexts/        # 전역 상태 관리 (음식 데이터 및 검색/정렬 상태)[cite: 1]
+│   │   ├── FormControls/# 공통 입력 요소 (Input, Select, Textarea)
+│   │   ├── LocaleSelect/# 언어 변경 선택 컴포넌트
+│   │   ├── Layout/      # 공통 레이아웃 (Header, Footer 포함)
+│   │   └── Modal/       # 알림 및 수정용 모달
+│   ├── contexts/        # 전역 상태 관리 (LocaleContext - 다국어 설정)
+│   ├── hooks/           # 커스텀 훅 (useLocale, useTranslate 등 비즈니스 로직)
 │   ├── utils/           # 유틸리티 함수 (날짜 포맷팅 등)
-│   ├── App.jsx          # 메인 로직 및 라우팅
+│   ├── App.jsx          # 메인 로직 및 전역 Context 적용
 │   ├── main.jsx         # 애플리케이션 진입점
-│   └── mock.json        # 초기 테스트용 목업 데이터
-├── index.html           # HTML 템플릿
-├── package.json         # 프로젝트 의존성 및 스크립트 설정[cite: 1]
-└── README.md            # 프로젝트 문서
+│   ├── mock.json        # 목업 데이터
+│   └── index.css        # 전역 스타일 및 초기화(reset)
+├── index.html           # 메인 HTML 템플릿
+├── package.json         # 의존성 및 스크립트 관리
+└── README.md            # 프로젝트 상세 정보 문서
 ```
 
 ## 📦 시작 가이드 (Getting Started)

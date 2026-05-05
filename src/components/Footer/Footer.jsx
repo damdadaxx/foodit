@@ -1,6 +1,6 @@
-import React from "react";
 import styles from "./Footer.module.css";
 import footerLogoImage from "../../assets/footerLogo.svg";
+import LocaleSelect from "../LocaleSelect/LocaleSelect";
 
 export default function Footer() {
   return (
@@ -12,6 +12,7 @@ export default function Footer() {
           alt='Foodit 텍스트 로고 이미지'
         />
         <p className={styles.privacy}>서비스 이용약관 | 개인정보 처리방침</p>
+        <LocaleSelect />
       </div>
     </footer>
   );

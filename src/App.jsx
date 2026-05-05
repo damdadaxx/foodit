@@ -7,8 +7,11 @@ import FoodForm from "./components/Food/FoodForm";
 import Button from "./components/Button/Button";
 import styles from "./App.module.css";
 import searchImage from "./assets/ic_search.svg";
+import useTranslate from "./hooks/useTranslate";
 
 function App() {
+  const t = useTranslate();
+
   const [items, setItems] = useState(mockData);
   const [order, setOrder] = useState("createdAt");
   const [keyword, setKeyword] = useState("");
@@ -67,14 +70,14 @@ function App() {
           <input
             className={styles.searchInput}
             type='text'
-            placeholder='검색어를 입력해주세요.'
+            placeholder={t("enter the keyword")}
             value={keyword}
             onChange={handleKeywordChange}
           />
           <img
             className={styles.searchImage}
             src={searchImage}
-            alt='검색어 인풋 아이콘'
+            alt={t("")}
           />
         </article>
         <div className={styles.buttonGroup}>
@@ -84,21 +87,23 @@ function App() {
               active={order === "createdAt" ? true : false}
               onClick={handleLatestClick}
             >
-              최신순
+              {t("sort by latest")}
             </Button>
             <Button
               variant='quaternary'
               active={order === "calorie" ? true : false}
               onClick={handleCalorieClick}
             >
-              칼로리순
+              {t("sort by calorie")}
             </Button>
           </div>
-          <Button onClick={() => setIsCreateModalOpen(true)}>추가하기</Button>
+          <Button onClick={() => setIsCreateModalOpen(true)}>
+            {t("create button")}
+          </Button>
         </div>
       </header>
       <Modal
-        title='칼로리 기록하기'
+        title={t("create calorie title")}
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
       >

@@ -1,14 +1,13 @@
-import React, { useContext, useState } from "react";
+import { useState } from "react";
 import Modal from "../Modal/Modal";
-// import EditFoodForm from "./EditFoodForm";
 import Button from "../Button/Button";
 import styles from "./FoodListItem.module.css";
 import { formatDate } from "../../utils/date";
 import FoodForm from "./FoodForm";
-import LocalContext from "../../contexts/LocaleContext";
+import useTranslate from "../../hooks/useTranslate";
 
 export default function FoodListItem({ item, onUpdate, onDelete }) {
-  const locale = useContext(LocalContext);
+  const t = useTranslate();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const { id, imgUrl, title, calorie, content, createdAt } = item;
@@ -34,21 +33,20 @@ export default function FoodListItem({ item, onUpdate, onDelete }) {
           <p className={styles.date}>{date}</p>
           <div className={styles.buttonGroup}>
             <Button variant='secondary' onClick={() => onDelete(id)}>
-              삭제
+              {t("delete button")}
             </Button>
             <Button
               variant='tertiary'
               type='button'
               onClick={() => setIsEditModalOpen(true)}
             >
-              수정
+              {t("edit button")}
             </Button>
-            <p>현재 언어: {locale}</p>
           </div>
         </div>
       </div>
       <Modal
-        title='칼로리 수정하기'
+        title={t("edit calorie")}
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
       >

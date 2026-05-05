@@ -3,9 +3,12 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import "./reset.css";
 import App from "./App.jsx";
+import { LocaleProvider } from "./contexts/LocaleContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
+    <LocaleProvider defaultValue='ko'>
+      <App />
+    </LocaleProvider>
   </StrictMode>,
 );

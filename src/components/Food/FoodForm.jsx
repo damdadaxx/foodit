@@ -4,12 +4,16 @@ import Input from "../FormControls/Input";
 import Textarea from "../FormControls/Textarea";
 import noImage from "../../assets/noImage.png";
 import styles from "./FoodForm.module.css";
+import useTranslate from "../../hooks/useTranslate";
 
 export default function CreateFoodForm({
   review = { title: "", imgUrl: "", calorie: "", content: "" },
   onSubmit,
 }) {
+  const t = useTranslate();
+
   const inputRef = useRef(null);
+
   const handleSubmit = (formData) => {
     // const title = formData.get("title");
     // const calorie = formData.get("calorie");
@@ -31,32 +35,32 @@ export default function CreateFoodForm({
           <img
             className={styles.noImage}
             src={review.imgUrl !== "" ? review.imgUrl : noImage}
-            alt='등록할 이미지'
+            alt={t("food image")}
           />
         </div>
         <div className={styles.inputs}>
           <Input
             type='name'
             name='title'
-            placeholder='이름을 입력하세요.'
+            placeholder={t("enter the title")}
             defaultValue={review.title}
             ref={inputRef}
           />
           <Input
             type='number'
             name='calorie'
-            placeholder='KCal'
+            placeholder={t("enter the calorie")}
             defaultValue={review.calorie}
           />
           <Textarea
             type='name'
             name='content'
-            placeholder='설명을 입력하세요.'
+            placeholder={t("enter the content")}
             defaultValue={review.content}
           />
         </div>
       </div>
-      <Button>작성</Button>
+      <Button>{t("submit button")}</Button>
     </form>
   );
 }
