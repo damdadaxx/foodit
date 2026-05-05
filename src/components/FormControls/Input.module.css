@@ -1,0 +1,39 @@
+input {
+  -webkit-appearance: none; /* 크롬, 사파리 등 */
+  -moz-appearance: none; /* 파이어폭스 */
+  appearance: none; /* 표준 */
+
+  /* 테두리나 배경이 기본 스타일 때문에 안 바뀐다면 강제 초기화 */
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  flex: 1 0 0;
+  gap: 8px;
+  height: 48px;
+  padding: 0 16px;
+  letter-spacing: -0.282px;
+  border-radius: 6px;
+  border: 1px solid #dae7e3;
+  color: #2b302f;
+  transition: all 0.2s;
+}
+
+.input::focus {
+  outline: none;
+  border: 1px solid #56ca5a !important;
+  outline-offset: 1px;
+}
+
+input:focus-visible {
+  border: 1px solid #56ca5a !important;
+  outline-offset: 1px;
+}
+
+.input::placeholder {
+  letter-spacing: -0.282px;
+  color: #b6bab2;
+}

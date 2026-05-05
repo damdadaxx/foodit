@@ -1,0 +1,10 @@
+:root {
+  --z-index-modal: 1000;
+  --z-index-header: 900;
+  --z-index-footer: 900;
+  --z-index-layout-bg: 10;
+}
+
+body {
+  overflow-x: hidden;
+}

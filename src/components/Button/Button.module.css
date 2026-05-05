@@ -1,0 +1,84 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* 포인트 컬러 버튼 */
+.primary {
+  width: 120px;
+  height: 48px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.318px;
+  border-radius: 6px;
+  color: #fff;
+  background: #2c9631;
+}
+
+/* Border 스타일 버튼 */
+.secondary {
+  width: 45px;
+  height: 24px;
+  font-size: 12px;
+  letter-spacing: -0.212px;
+  border-radius: 5px;
+  color: #7f8e89;
+  border: 1px solid #c8dad4;
+}
+
+.tertiary {
+  width: 45px;
+  height: 24px;
+  font-size: 12px;
+  letter-spacing: -0.212px;
+  border-radius: 5px;
+  color: #b18181;
+  border: 1px solid #e5cdcd;
+}
+
+/* 텍스트 스타일 버튼 */
+.quaternary {
+  position: relative;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2b302f;
+}
+.quaternary::before {
+  content: "";
+  display: none;
+  width: 5px;
+  height: 5px;
+  margin-right: 11px;
+  background: #2c9631;
+}
+.quaternary.active {
+  color: #2c9631;
+}
+.quaternary.active::before {
+  display: block;
+}
+
+/* 더보기 버튼 */
+.loadMore {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 59px;
+  border-radius: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.318px;
+  text-align: center;
+  color: #4caf50;
+  background: #f2f6f2;
+}
+.loadMore::after {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  margin-left: 5px;
+  background: url(../../assets/ic_arrow.svg) no-repeat center/cover;
+}

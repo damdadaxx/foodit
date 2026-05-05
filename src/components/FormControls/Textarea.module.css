@@ -1,0 +1,14 @@
+.textarea {
+  height: 90px;
+  padding: 16px;
+  letter-spacing: -0.282px;
+  border-radius: 6px;
+  border: 1px solid #dae7e3;
+  color: #2b302f;
+}
+
+.textarea::placeholder {
+  letter-spacing: -0.282px;
+  border-radius: 6px;
+  color: #b6bab2;
+}

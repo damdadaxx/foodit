@@ -1,0 +1,25 @@
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 20px;
+  z-index: var(----z-index-footer);
+  background-color: #4caf50;
+}
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 75px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.logoImage {
+}
+.privacy {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.247px;
+  color: #d4fdd6;
+}

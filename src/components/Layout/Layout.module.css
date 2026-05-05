@@ -1,0 +1,26 @@
+.layout {
+  margin: 75px 0;
+  padding: 0 20px;
+  background-color: #f9fbf9;
+}
+
+.inner {
+  position: relative;
+  z-index: var(--z-index-layout-bg);
+  width: 100%;
+  max-width: 1000px;
+  padding: 65px 0;
+  margin: 0 auto;
+}
+
+.layout::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: block;
+  width: 1838px;
+  height: 710px;
+  background: url(../../assets/layoutBg.png) no-repeat center/cover;
+}
