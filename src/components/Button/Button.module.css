@@ -82,3 +82,8 @@
   margin-left: 5px;
   background: url(../../assets/ic_arrow.svg) no-repeat center/cover;
 }
+.loadMore:disabled {
+  color: #999;
+  background: #bcaeae3f;
+  cursor: not-allowed;
+}

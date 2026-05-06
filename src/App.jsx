@@ -23,6 +23,8 @@ function App() {
   const [keyword, setKeyword] = useState("");
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [cursor, setCursor] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleLoad = async (orderParams, searchParam) => {
     const response = await axios.get("/foods", {
@@ -34,15 +36,29 @@ function App() {
   };
 
   const handleLoadMore = async () => {
-    const response = await axios.get("/foods", {
-      params: {
-        order,
-        search: keyword,
-        limit: LIMIT,
-        cursor,
-      },
-    });
-    const { foods, paging } = response.data;
+    let data = null;
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await axios.get("/foods", {
+        params: {
+          order,
+          search: keyword,
+          limit: LIMIT,
+          cursor,
+        },
+      });
+      data = response.data;
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+
+    if (!data) return;
+
+    const { foods, paging } = data;
     setItems((prevItems) => [...prevItems, ...foods]);
     setCursor(paging.nextCursor);
   };
@@ -143,10 +159,15 @@ function App() {
       </Modal>
       <FoodList items={items} onDelete={handleDelete} onUpdate={handleUpdate} />
       {cursor && (
-        <Button variant='loadMore' onClick={handleLoadMore}>
+        <Button
+          variant='loadMore'
+          disabled={isLoading}
+          onClick={handleLoadMore}
+        >
           더보기
         </Button>
       )}
+      {error && <div>에러가 발생했습니다.</div>}
     </Layout>
   );
 }
